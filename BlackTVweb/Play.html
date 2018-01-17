@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!-- Bootstrap -->
+    <link href="jqwidgets/styles/jqx.base.css" rel="stylesheet" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/bootstrap-theme.min.css" rel="stylesheet"/>
+    <link href="Styles/viewer.css" rel="stylesheet"/>
+    <link href="Content/Slick/slick.css" rel="stylesheet" />
+    <link href="Content/Slick/slick-theme.css" rel="stylesheet" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="Scripts/jquery-2.1.1.min.js"></script>
+    <script src="jqwidgets/jqxcore.js"></script>
+    <script src="jqwidgets/jqxbuttons.js"></script>
+    <script src="jqwidgets/jqxscrollbar.js"></script>
+    <script src="jqwidgets/jqxdata.js"></script>
+    <script src="jqwidgets/jqxlistbox.js"></script>
+    <script src="jqwidgets/jqxdropdownlist.js"></script>
+    <script src="Scripts/Slick/slick.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <style type="text/css">
+        
+        #meny {
+            margin: 0;
+            padding: 0;
+            color: red;
+        }
+    </style>
+    <script>
+        function showCoords(event) {
+            var y = event.clientY;
+            if (y < 5) {
+                //document.getElementById("demo").innerHTML = 'Öppna';
+                // $("#modalForhndsgranska").modal("show");
+                forhandsgranska();
+            }
+
+        }
+
+        function clearCoor() {
+            document.getElementById("demo").innerHTML = "";
+        }
+        function forhandsgranska() {
+            var ftgid = localStorage.foretag;
+            //Nu fyller vi på dropdownlistan från databas
+            //var urlLista = 'http://localhost:51118/ServiceBlack.asmx/getGrupper?foretagsid=' + ftgid;
+            var urlLista = 'http://blacktv.se/ServiceBlack.asmx/getGrupper?foretagsid=' + ftgid;
+            var sourceGruppdata = {
+                type: "GET",
+                datatype: "json",
+                datafields: [
+                   { name: 'id', type: 'number' },
+                   { name: 'Grupp', type: 'string' }
+                ],
+                url: urlLista,
+                cache: false,
+                root: 'data'
+            };
+            //Förbered data för användning
+            var dataAdapterGrupp = new $.jqx.dataAdapter(sourceGruppdata, {
+                contentType: 'application/json; charset=utf-8',
+                downloadComplete: function (data, textStatus, jqXHR) {
+
+                    return data.d;
+                },
+                loadError: function (jqXHR, textStatus, errorThrown) {
+                    alert('HTTP status code: ' + jqXHR.status + '\n' +
+                          'textStatus: ' + textStatus + '\n' +
+                          'errorThrown: ' + errorThrown);
+                    alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
+                }
+            }
+            );
+            // Skapa jqxDropDownList
+            $("#DivDroppdown2").jqxDropDownList({
+                source: dataAdapterGrupp, displayMember: "Grupp", valueMember: "id", width: 200, height: 25, placeHolder: "Välj grupp:"
+            });
+            $("#modalForhndsgranska").modal("show");
+        }
+        function Kor() {
+            var ftgid = localStorage.foretag;
+            var item = $("#DivDroppdown2").jqxDropDownList('getSelectedItem');
+            var sHTML = '';
+            var gruppID = $('#DivDroppdown2').jqxDropDownList('getItemByValue', item);
+            $.ajax({
+                type: "GET",
+                //url: "http://localhost:51118/ServiceBlack.asmx/getShowBlackTv?ftgid=" + ftgid + "&grupp=" + gruppID.value,
+                url: "http://blacktv.se/ServiceBlack.asmx/getShowBlackTv?ftgid=" + ftgid + "&grupp=" + gruppID.value,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: successFunction,
+                error: function (msg) {
+                    swal({ title: "Error!", text: msg.statusText, type: "error", confirmButtonText: "Stäng" });;
+                }
+            });
+            function successFunction(data) {
+                $.each(data.d, function (i, item) {
+                    sHTML = sHTML + '<div>' + item.info + '</div>';
+                });
+                /*In med divarna i förhandsgranskingen*/
+                $('#inner').html(sHTML);
+                $('.visa').slick({
+                    slidesToShow: 1,
+                    autoplay: true,
+                    autoplaySpeed: 10000,
+                    centerMode: true,
+                    fade: true
+                });
+            }
+        }
+    </script>
+</head>
+<body onmousemove="showCoords(event)" onmouseout="clearCoor()">
+
+<div id=outer>
+    <p id="demo"></p>
+    <div id=inner class="visa"> </div>
+</div>
+    <!-- Modal välj grupp för visning -->
+    <div id="modalForhndsgranska" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Förhandsgranska</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body row">
+
+                        <div class="col-md-12">
+                            <div class="content">
+                                <div id="DivDroppdown2"></div>
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" onclick="Kor();" id="btnRun" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Kör">
+                                        Kör
+                                        <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                                    </button>
+                                    <button id="btnStopp" type="button" onclick="Stop();" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Stoppa">
+                                        Stoppa
+                                        <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+                                    </button>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Stäng</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html> 

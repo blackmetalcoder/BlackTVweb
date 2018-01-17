@@ -1,0 +1,418 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BLACKTV</title>
+    <link href="jqwidgets/styles/jqx.base.css" rel="stylesheet"/>
+    <link href="jqwidgets/styles/jqx.metrodark.css" rel="stylesheet"/>
+    <link href="Content/Slick/slick.css" rel="stylesheet"/>
+    <link href="Content/Slick/slick-theme.css" rel="stylesheet"/>
+    <!-- Bootstrap -->
+    <link href="Content/bootstrap.min.css" rel="stylesheet"/>
+    <link href="Content/bootstrap-theme.min.css" rel="stylesheet"/>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link href="css/tvedit.css" rel="stylesheet"/>
+    <link href="Styles/sweetalert.css" rel="stylesheet"/>
+    <link href="Content/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
+    <link href="Styles/summernote.css" rel="stylesheet" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="Scripts/jquery-2.1.1.min.js"></script>
+    <script src="jqwidgets/jqxcore.js"></script>
+    <script src="jqwidgets/jqxdata.js"></script>
+    <script src="jqwidgets/jqxbuttons.js"></script>
+    <script src="jqwidgets/jqxscrollbar.js"></script>
+    <script src="jqwidgets/jqxmenu.js"></script>
+    <script src="jqwidgets/jqxgrid.js"></script>
+    <script src="jqwidgets/jqxgrid.grouping.js"></script>
+    <script src="jqwidgets/jqxgrid.selection.js"></script>
+    <script src="jqwidgets/jqxcheckbox.js"></script>   
+    <script src="jqwidgets/jqxlistbox.js"></script>
+    <script src="jqwidgets/jqxdropdownlist.js"></script>    
+    <script src="Scripts/tooltip.js"></script>
+    <script src="Scripts/sweetalert.min.js"></script>
+    <script src="Scripts/Slick/slick.min.js"></script>
+    <script src="Scripts/js.cookie.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/bootstrap-datetimepicker.min.js"></script>
+    <script src="Scripts/bootstrap-datetimepicker.sv.js"></script>
+    <script src="lang/summernote-sv-SE.js"></script>
+    <script src="Scripts/summernote.min.js"></script>
+    <script src="Scripts/summernote-ext-template.js"></script>
+    <script src="js/bakgrund.js"></script>
+    <script src="js/TV.js"></script>
+   <!-- <script src="Scripts/jquery.page_zoom.min.js"></script>-->
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-72960912-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse ">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <img alt="Brand" src="animated_favicon1.gif">
+                    </a>
+                </div>
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        BLACKTV
+                    </a>
+                </div>
+            </div>
+        <div class="navbar-inner">
+            <form class="navbar-form form-inline">
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" onclick="Ny();" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Ny sida till BLACKTV">
+                        Ny TV-sida
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" onclick="VisaGrupper(); " class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Jobba med grupper">
+                        Grupper
+                        <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" onclick="Nygrupp();" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Ny grupp till BLACKTV">
+                        Ny grupp
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" onclick="Konto(); " class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Redigera dina uppgifter">
+                        Konto
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" onclick="forhandsgranska(); " class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Förhandsgranska BLACKTV">
+                        Förhandsgranska
+                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                    </button>
+                    <!--<button type="button" onclick=" forhandsgranska(); " class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Förhandsgranska BLACKTV">
+                    <a href="Play.html" class="btn btn-primary btn-lg active" role="button">Play, BLACKTV</a>-->
+                        Spela upp
+                        <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                    <!--</button>-->
+                </div>
+                </form>>
+        </div>
+        </div>
+    </nav>
+    <!--Nu kommer datatabell med rader för BLACKTV-->
+<div id="BlackTVrader" class="center"></div><br/>
+ 
+    <!-- Modal TV edit -->
+<div id="myModalEditTV" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <!--<h2 class="text-center"><img src="/images/TV2110.png" class="img-circle"><br>Redigera
+            </h2>-->
+        </div>
+        <div class="modal-body row">
+            <div class="TVdiv">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button type="button" onclick=" Spara(); " class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Sparar ändringar">
+                                Spara
+                                <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                            </button>
+                            <button id="btnRadera" type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Radera sida från BLACKTV">
+                                Radera
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div><br/>
+                <div class="row">
+                    <div id="lblID" class="col-md-2">
+                        ID:
+                    </div>
+                    <div class="col-md-4"><input class="form-control" id="txtID" type="text" size="5"/>
+                    </div>
+                    <div id="lblForetagsID" class="col-md-2">
+                        Företagsid:
+                    </div>
+                    <div class="col-md-4"><input class="form-control" id="txtFtgid" type="text" size="5"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        Tag:
+                    </div>
+                    <div class="col-md-4"><input class="form-control" id="txtTag" type="text"/>
+                    </div>
+                    <div class="col-md-2">
+                        Grupp:
+                    </div>
+                    <div class="col-md-4">
+                        <div id="DivDroppdown"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        Video:
+                    </div>
+                    <div class="col-md-4">
+                        <input id="txtVideo" type="checkbox" class="form-control"/>
+                    </div>
+                    <div class="col-md-2">
+                        Slut datum:
+                    </div>
+                    <div class='col-md-4'>
+                        <div class="form-group">
+                            <div class="input-group date form_date col-md-4" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                                <input id="txtDatum" class="form-control" size="16" type="text" value="" readonly>
+                                <!--<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>-->
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                            <input type="hidden" id="dtp_input2" value=""/><br/>
+                        </div>
+                    </div>
+                    <div class="row"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!--<div id="summernote"></div>-->
+                            <textarea id="summernote"></textarea></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Stäng</button>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+<script type="text/javascript">
+    $('.form_date').datetimepicker({
+        language: 'sv',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+</script>
+    <!-- Modal edit grupper -->
+<div id="myModalEditGrupper" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h2 class="text-center"><img src="/images/TV2110.png" class="img-circle"><br>Redigera grupper
+                </h2>
+            </div>
+            <div class="modal-body row">
+                <div class="TVdiv">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" onclick=" sparaGrupp(); " class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Sparar ändringar">
+                                    Spara
+                                    <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                                </button>
+                                <button id="btnRaderaGrupp" onclick=" raderaGrupp(); " type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Radera sida från BLACKTV">
+                                    Radera
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div><br/>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <div id='lstGrupper'></div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="mini-box">Grupp:</div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="mini-box">
+                                            <input id="txtGrupp" type="text" class="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="mini-box">Info:</div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="mini-box">
+                                            <input id="txtInfo" type="text" class="form-control"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">Stäng</button>
+        </div>
+    </div>
+</div>
+
+    <!-- Modal kontakter -->
+<div id="modalKonto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h2 class="text-center">
+                    <img src="/images/TV2110.png" class="img-circle"><br>Redigera kontaktuppgifter
+                </h2>
+            </div>
+            <div class="modal-body">
+                <table id="kontakt">
+                    <tr>
+                        <td>Företag:</td>
+                        <td><input id="txtForetag" type="text" class="form-control" size="100"/></td>
+                    </tr>
+                    <tr>
+                        <td>Adress:</td>
+                        <td><input id="txtAdress" type="text" class="form-control" size="100"/></td>
+                    </tr>
+                    <tr>
+                        <td>Postnr:</td>
+                        <td><input type="text" id="txtPostnr" class="form-control" size="6"/></td>
+                    </tr>
+                    <tr>
+                        <td>Ort:</td>
+                        <td><input type="text" class="form-control" id="txtOrt" size="100"/></td>
+                    </tr>
+                    <tr>
+                        <td>Tel:</td>
+                        <td><input type="text" class="form-control" id="txtTel" size="25"/></td>
+                    </tr>
+                    <tr>
+                        <td>Epost:</td>
+                        <td><input type="email" class="form-control" id="txtEpost" size="100"/></td>
+                    </tr>
+                    <tr>
+                        <td>Kontaktperson:</td>
+                        <td><input type="text" class="form-control" id="txtKontaktperson" size="100"/></td>
+                    </tr>
+                    <tr>
+                        <td>Lösenord:</td>
+                        <td><input type="password" class="form-control" id="txtLosen" size="10"/></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick=" uppdateraKonto(); ">
+                    Spara
+                    <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Stäng</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Modal förhandsgranskning -->
+    <div id="modalForhndsgranska" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Förhandsgranska</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body row">
+
+                        <div class="col-md-12">
+                            <div class="content">
+                                <div id="DivDroppdown2"></div>
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" onclick="Kor();" id="btnRun" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Kör">
+                                        Kör
+                                        <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                                    </button>
+                                    <button id="btnStopp" type="button" onclick="Stop();" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Stoppa">
+                                        Stoppa
+                                        <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-warning" onclick="small();">
+                                        600*800
+                                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-warning" onclick="medium();">
+                                        800*1280
+                                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-warning" onclick="large();">
+                                        TV 720*1280
+                                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-warning" onclick=" xlarge(); ">
+                                        HD-tv 1080*1920
+                                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                                    </button>
+                                     <button type="button" id="zoom_in" onclick="zoomIn()" class="btn btn-primary class="zoom_in"">
+                                        Zooma in
+                                        <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+                                    </button>
+                                   <button type="button" id="zoom_out" onclick="zoomOut()" class="btn btn-primary zoom_out">
+                                        Zooma ut
+                                        <span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span>
+                                    </button>
+                                   <!-- <button type="button" id="zoom_reset" class="btn btn-primary zoom_reset">
+                                        Zooma reset
+                                        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                                    </button>-->
+                                </div>
+                            </div>                           
+                        </div>
+                    </div>
+                    <div id="granska" class="visa">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Stäng</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+<footer>
+            <div class="navbar navbar-inverse navbar-fixed-bottom">
+                <div class="navbar-inner"><p><b>&copy; BLACKTV 2016</b></p></div>
+            </div>
+        </footer>
+</body>
+</html>

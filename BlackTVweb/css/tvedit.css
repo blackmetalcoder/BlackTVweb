@@ -1,0 +1,76 @@
+﻿.center {
+    margin: auto;
+    width: 60%;
+    padding: 10px;
+}
+body {
+    background: gray;
+   padding-right: 0px !important
+}
+.DivEdit {
+   margin: auto;
+    width: 60%;
+    height: 75%;
+    border: 3px solid #73AD21;
+    padding: 10px; 
+}
+.TVdiv {
+    padding: 15px;
+}
+#myModalEditTV .modal-dialog 
+ {
+    width:80%;
+    /*height: 90%;*/
+    max-height: 700px;
+    overflow: visible;
+    z-index: 9999;
+}
+#myModalEditGrupper .modal-dialog {
+    width:45%;
+}
+.big-box,
+.mini-box {
+    background-color: white;
+    color: #000000;
+    text-align: center;
+    font-size: 1.5em;
+}
+.big-box {
+    height: 65px
+}
+.mini-box {
+    height: 30px
+}
+table#kontakt 
+{
+    border-collapse:separate;
+    border-spacing:0 5px;
+}
+#modalForhndsgranska .modal-dialog {
+    width:75%;
+    height: 75%;
+}
+#granska {
+    margin: auto;
+    padding: 10px;
+    width: 90%;
+    height: 90%;
+}
+.pageHolder{
+  overflow: auto;
+  width: 100%;
+    display: inline-block;
+}
+.content > div{
+     display: table-cell;
+  }
+.visa {
+ border: 12px solid gray;
+ border-radius: 10px;
+ margin-top: 15px;
+ margin-bottom: 15px; 
+ width: 85%;
+ height: 85%;
+        }
+
+

@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>BLACKTV</title>
+    <meta charset="utf-8"/>
+    <link href="css/tvedit.css" rel="stylesheet" />
+    <link href="Content/Slick/slick.css" rel="stylesheet" />
+    <link href="Content/Slick/slick-theme.css" rel="stylesheet" />
+    <script src="Scripts/jquery-2.1.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+    <script src="Scripts/Slick/slick.min.js"></script>
+
+    <style>
+        .visa {
+            border: 12px solid #ff6a00;
+            border-radius: 10px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            /*width: 85%;
+ height: 85%;*/
+        }
+    </style>
+    <script>
+        function small() {
+            $('#veiwer').height(600);
+            $('#veiwer').width(800);
+        }
+        function medium() {
+            $('#veiwer').height(800);
+            $('#veiwer').width(1280);
+        }
+        function large() {
+            $('#veiwer').height(720);
+            $('#veiwer').width(1280);
+        }
+        function xlarge() {
+            $('#veiwer').height(1080);
+            $('#veiwer').width(1920);
+        }
+    </script>
+</head>
+<body>
+<div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="btn btn-default" onclick="small();">600*800</button>
+    <button type="button" class="btn btn-default" onclick="medium();">800*1280 </button>
+    <button type="button" class="btn btn-default" onclick="large();">TV 720*1280</button>
+    <button type="button" class="btn btn-default" onclick="xlarge();">HD-tv 1080*1920</button>
+</div>
+<div id="veiwer" class="visa">
+    <div id="innerVisare"></div>   
+</div>
+</body>
+</html>
